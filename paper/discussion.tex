@@ -1,0 +1,25 @@
+\section{Discussion}
+
+\subsection{Two-stage organization of dendritic inputs}
+
+Our results support a two-stage model of synapse organization on cortical dendrites. The first stage is a distance-dependent gradient: synapse density varies systematically with soma distance, reflecting known proximal-distal biases in input targeting. The soma-distance null model captures this first-order structure. The second stage is partner-specific clustering: beyond the distance gradient, synapses from the same presynaptic neuron tend to co-localize within restricted dendritic territories. This second-order structure is detectable only after controlling for the first-order gradient, and is confirmed by the label-shuffle control to be tied to presynaptic identity rather than dendritic geometry.
+
+This two-stage framework avoids the circularity that could arise from testing partner-specific clustering without controlling for distance effects. Because the soma-distance null is estimated from all synapses collectively, it captures the population-level gradient but cannot explain partner-specific deviations from that gradient.
+
+\subsection{Biological implications}
+
+The observed clustering is consistent with Hebbian models of synapse formation and maintenance, in which co-active presynaptic neurons preferentially form and strengthen synapses in shared dendritic compartments \citep{larkum2022,poirazi2003}. Local dendritic integration could amplify the effect of spatially clustered inputs, providing a mechanism for feature selectivity at the single-neuron level \citep{branco2010}.
+
+The median compactness ratio of 0.884 indicates a modest but systematic effect: partner synapses are approximately 12\% closer together than expected by chance. While this may seem small in absolute terms, it represents a population-wide shift affecting 87.7\% of partners, not an effect driven by outliers. The consistency of this shift across 10 of 12 neurons and across both excitatory and inhibitory postsynaptic cell types suggests a general organizing principle.
+
+\subsection{The BPC exception}
+
+Both bipolar cells (BPC) showed no significant partner-specific clustering, despite showing significant overall spatial structure under both null models. BPC neurons have highly polarized dendritic morphology with minimal branching, which may constrain the range of spatial configurations available for partner-specific organization. This result suggests that dendritic architecture sets boundary conditions on input organization strategies, and that not all cell types exploit the same spatial targeting mechanisms.
+
+\subsection{The relationship between partner size and compactness}
+
+We observed that partners with fewer synapses ($k = 3$--$4$) showed stronger compactness (22.9\% distance reduction) than partners with many synapses ($k \geq 13$; 9.0\% reduction). This pattern may reflect two distinct regimes: small partners target compact dendritic microdomains, while large partners engage broader dendritic territories. Alternatively, the strongest clustering signal in small-$k$ partners could indicate selective synapse elimination, where clustered synapses are preferentially retained while dispersed ones are pruned. Distinguishing these scenarios would require longitudinal imaging of synapse dynamics.
+
+\subsection{Limitations}
+
+This study analyzes 12 neurons from a single cortical volume. While the signal replicates consistently across most neurons and cell types, the sample size limits generalization to cell types not represented (e.g., chandelier cells) or to other brain regions. The MICrONS connectome provides a static snapshot; whether the observed clustering reflects developmental processes, activity-dependent plasticity, or both cannot be determined from anatomy alone. The distance-matched permutation null controls for soma-distance gradients but does not account for all possible confounds, such as branch-specific input biases or laminar targeting preferences of specific presynaptic cell types. Finally, our analysis uses geodesic distance along the dendritic tree as the primary spatial metric; electrical distance or calcium compartmentalization may provide more functionally relevant measures of synaptic proximity.

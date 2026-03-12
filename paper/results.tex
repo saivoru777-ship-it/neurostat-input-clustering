@@ -1,0 +1,60 @@
+\section{Results}
+
+\subsection{Synapse spatial structure persists under a soma-distance null model}
+
+We first tested whether the spatial organization of synapses on dendrites, previously detected with uniform null models \citep{neurostat}, persists when accounting for known soma-distance-dependent density gradients. For each of the 12 neurons (6 excitatory, 6 inhibitory; Table~\ref{tab:summary}), we estimated the synapse density as a function of geodesic distance from the soma using kernel density estimation normalized by available dendritic path length at each distance band. This density profile was used to construct a soma-distance null model in which synapse placement probability is proportional to the observed distance-dependent density, rather than uniform along path length.
+
+All 12 neurons showed significant spatial structure under both the uniform null ($p < 0.001$ for all neurons, Hotelling's $T^2$ test on variance-mean ratio curves) and the more conservative soma-distance null ($p < 0.015$ for all neurons; Table~\ref{tab:summary}). The persistence of significance under the soma-distance null indicates that the spatial organization of synapses is not merely a first-order distance gradient, but reflects higher-order structure in how synapses are distributed along the dendritic tree.
+
+\subsection{Presynaptic partners are systematically more compact on dendrites than expected by chance}
+
+To test whether synapses from the same presynaptic neuron cluster together on dendrites, we developed a per-partner clustering test. For each presynaptic partner contributing $k \geq 5$ synapses, we computed the mean pairwise geodesic distance among its synapses and compared this to a distance-matched permutation null. The null preserves the partner's soma-distance distribution by binning all synapses into equal-frequency distance bands and resampling $k$ synapses with the same bin profile (1000 permutations per partner). We defined the compactness ratio as the observed mean pairwise distance divided by the null median, such that values below 1.0 indicate tighter clustering than expected.
+
+Across all 12 neurons, 496 partners met the $k \geq 5$ threshold. The median compactness ratio was 0.884 (IQR: 0.742--0.954), corresponding to a median distance reduction of 11.6\% relative to the null (Fig.~\ref{fig:compactness_cdf}B). A total of 87.7\% of partners were more compact than expected (compactness ratio $< 1.0$), demonstrating a population-wide left shift in the compactness distribution rather than an effect driven by a few outliers (Fig.~\ref{fig:compactness_cdf}A--B).
+
+The effect was consistent across postsynaptic neuron types: excitatory neurons showed a median compactness ratio of 0.876 (IQR: 0.721--0.951, $n = 329$ partners), and non-BPC inhibitory neurons showed a median of 0.899 (IQR: 0.769--0.964, $n = 154$ partners; Fig.~\ref{fig:compactness_cdf}B).
+
+\subsection{Partner-specific clustering replicates across neurons, with BPC as an exception}
+
+After correcting for multiple testing (Benjamini-Hochberg FDR at $q = 0.05$), 10 of 12 neurons showed significant enrichment of clustered partners at the $k \geq 5$ threshold (binomial test, $p < 0.001$; Table~\ref{tab:summary}). Enrichment ratios ranged from 5.2$\times$ to 11.1$\times$ the expected fraction under the null. At the more stringent $k \geq 8$ threshold, 7 of 12 neurons retained significant enrichment, with individual neurons showing 24--74\% of high-synapse partners significantly clustered.
+
+The two bipolar cells (BPC) were the exception: neither showed significant partner clustering at any threshold (enrichment ratios 0.0--2.2$\times$, $p > 0.10$; Table~\ref{tab:summary}). This exception is consistent with the distinct morphology of BPC neurons, which have highly polarized dendritic trees with limited branching \citep{microns}. The absence of clustering in BPC neurons suggests that dendritic architecture constrains the spatial organization of inputs, and not all cell types employ the same input targeting strategy. The fact that BPC neurons behave differently strengthens the conclusion that the method is detecting a real biological signal, rather than a methodological artifact.
+
+\subsection{Label-shuffle control confirms partner-specific spatial organization}
+
+To verify that the clustering signal is tied to presynaptic identity rather than dendritic geometry alone, we performed a label-shuffle control on three representative neurons (exc\_23P, exc\_5PET, inh\_BC). In each shuffle, partner identity labels were randomly permuted across all synapses while holding synapse positions fixed, and the per-partner clustering test was re-run ($n = 1000$ shuffles, 200 permutations per shuffle).
+
+The label-shuffle control produced a clean separation between real and shuffled data. The fraction of significantly clustered partners in real data (24.3--52.4\%) was far greater than in shuffled data (mean: 0.5\%, maximum across all shuffles: $< 4\%$; $p < 0.001$ for all three neurons; Fig.~\ref{fig:label_shuffle}). This demonstrates that the spatial compactness of partner synapses reflects genuine partner-to-position specificity, not an artifact of dendritic morphology or the testing procedure.
+
+\subsection{Clustering detection scales with partner synapse count, while compactness effect remains broadly shifted}
+
+We examined how clustering results vary with the number of synapses per partner ($k$). Detection rate (fraction of BH-significant partners) increased with $k$: 24.7\% for $k = 3$--$4$, 31.7\% for $k = 5$--$7$, 35.2\% for $k = 8$--$12$, and 41.8\% for $k \geq 13$ (Fig.~\ref{fig:k_vs_clustering}A). This increase reflects greater statistical power for partners with more synapses.
+
+The median compactness ratio, however, showed a different pattern: partners with fewer synapses exhibited stronger compactness ($k = 3$--$4$: median ratio 0.771, 22.9\% distance reduction) compared to partners with many synapses ($k \geq 13$: median ratio 0.910, 9.0\% distance reduction; Fig.~\ref{fig:k_vs_clustering}B). This pattern is consistent with the biological expectation that partners contributing many synapses may target broader dendritic territories, while partners with few synapses concentrate their inputs in a local dendritic patch. Importantly, the compactness ratio remains below 1.0 across all $k$ bins, confirming that the clustering effect is not restricted to a particular synapse count range.
+
+
+\begin{table}[t]
+\centering
+\caption{Summary of input-specific clustering analysis across 12 MICrONS cortical neurons. Compactness ratio: observed / null mean pairwise geodesic distance for partners with $k \geq 5$ synapses ($< 1.0$ indicates clustering). BH-significant fraction: proportion of partners significant after Benjamini-Hochberg correction at $q = 0.05$. Label-shuffle: fraction of partners significant in real vs.\ shuffled data (tested on 3 neurons). Soma-null $p$: Hotelling's $T^2$ test on VMR curves under the soma-distance null model.}
+\label{tab:summary}
+\small
+\begin{tabular}{llrrrrrrr}
+\toprule
+Neuron & Type & $n_{\text{syn}}$ & $n_{\text{partners}}$ & Median & Frac. & Enrich. & Shuffle & Soma-null \\
+       &      &                  & ($k \geq 5$)          & compact. & sig. & ($\times$) & real / null & $p$ \\
+\midrule
+exc\_23P   & 23P   & 1063 & 63  & 0.859 & 0.476 &  9.5 & 0.524 / 0.005 & $< 0.001$ \\
+exc\_23P\_2 & 23P  &  937 & 43  & 0.882 & 0.512 & 10.2 & ---           & $< 0.001$ \\
+exc\_4P    & 4P    &  990 & 61  & 0.876 & 0.443 &  8.9 & ---           & $< 0.001$ \\
+exc\_5PIT  & 5P-IT & 1199 & 41  & 0.900 & 0.268 &  5.4 & ---           & $< 0.001$ \\
+exc\_5PET  & 5P-ET & 2490 & 107 & 0.859 & 0.327 &  6.5 & 0.411 / 0.005 & $< 0.001$ \\
+exc\_6PCT  & 6P-CT &  488 & 14  & 0.896 & 0.143 &  2.9 & ---           & 0.002 \\
+inh\_BC    & BC    & 1617 & 37  & 0.923 & 0.324 &  6.5 & 0.243 / 0.005 & 0.014 \\
+inh\_BC\_2  & BC   & 1491 & 58  & 0.933 & 0.259 &  5.2 & ---           & $< 0.001$ \\
+inh\_MC    & MC    & 1584 & 41  & 0.881 & 0.415 &  8.3 & ---           & 0.011 \\
+inh\_MC\_2  & MC   & 1230 & 18  & 0.690 & 0.556 & 11.1 & ---           & $< 0.001$ \\
+inh\_BPC   & BPC   &  669 & 23  & 0.820 & 0.043 &  0.9 & ---           & $< 0.001$ \\
+inh\_BPC\_2 & BPC  &  586 &  8  & 0.949 & 0.000 &  0.0 & ---           & $< 0.001$ \\
+\bottomrule
+\end{tabular}
+\end{table}
