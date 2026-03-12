@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.eggs/
+*.egg-info/
+dist/
+build/
+.venv/
+data/microns/*.h5
+results/
+figures/
+.DS_Store
