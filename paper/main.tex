@@ -1,0 +1,43 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+
+\bibliographystyle{apalike}
+
+\title{Input-specific dendritic clustering persists beyond soma-distance gradients in cortical connectomics}
+
+\author{Pretham Sai}
+
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\input{abstract}
+
+\input{introduction}
+
+\input{results}
+
+\input{methods}
+
+\input{discussion}
+
+\input{figures}
+
+\section*{Data and code availability}
+All analysis code is available at \url{https://github.com/saivoru777-ship-it/neurostat-input-clustering}. The MICrONS connectome data is publicly available at \url{https://www.microns-explorer.org/}. A reproducibility manifest with execution instructions, random seeds, and output checksums is included in the repository.
+
+\section*{Acknowledgments}
+This work used data from the MICrONS consortium \citep{microns2025}. The Neurostat statistical framework \citep{neurostat} provided the foundation for multiscale spatial analysis.
+
+\bibliography{references}
+
+\end{document}

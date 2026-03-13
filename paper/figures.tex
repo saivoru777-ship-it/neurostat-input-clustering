@@ -1,0 +1,97 @@
+% ── Main text figures ──
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_soma_distance_profiles.pdf}
+\caption{\textbf{Synapse density varies with soma distance across cortical neurons.}
+Histograms of synapse soma-distance distributions (bars) with fitted kernel density estimates (lines) for all 12 neurons. The density profiles, normalized by available dendritic path length at each distance, are used to construct the soma-distance null model.}
+\label{fig:soma_profiles}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_null_comparison.pdf}
+\caption{\textbf{Spatial structure persists under both uniform and soma-distance null models.}
+Variance-mean ratio (VMR) curves at multiple spatial scales for each neuron (black circles) compared against 90\% envelopes from 50 mock datasets under the uniform null (blue shading) and soma-distance null (orange shading). All 12 neurons exceed both null envelopes, indicating spatial organization beyond first-order distance gradients.}
+\label{fig:null_comparison}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_compactness_cdf.pdf}
+\caption{\textbf{Presynaptic partners are systematically more compact on dendrites than expected by chance.}
+\textbf{(A)}~Cumulative distribution of compactness ratios (observed / null mean pairwise geodesic distance) for partners with $k \geq 5$ synapses on the most clustered neuron. Values below 1.0 indicate tighter clustering than the distance-matched null.
+\textbf{(B)}~Pooled compactness distributions stratified by postsynaptic neuron type. Both excitatory and non-BPC inhibitory neurons show a clear left shift, while BPC neurons remain closer to the null expectation.
+\textbf{(C)}~Per-neuron median compactness ratio with bootstrap 95\% confidence intervals. Orange: excitatory; blue: inhibitory; gray: BPC. The population-wide shift below 1.0 (Wilcoxon signed-rank $p = 2.1 \times 10^{-68}$) demonstrates systematic partner-specific clustering.}
+\label{fig:compactness_cdf}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_label_shuffle.pdf}
+\caption{\textbf{Label-shuffle control confirms that clustering reflects presynaptic identity.}
+Distribution of the fraction of significantly clustered partners under 1000 label shuffles (gray histograms) compared to the real fraction (vertical colored lines) for three representative neurons. In each shuffle, partner identity labels are permuted while synapse positions are held fixed. The real clustering fraction (24--52\%) far exceeds all shuffled values ($< 4\%$), demonstrating that the spatial compactness is tied to specific partner-to-position assignments.}
+\label{fig:label_shuffle}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_branch_targeting_exc_23P.pdf}
+\caption{\textbf{Individual presynaptic partners target localized dendritic regions.}
+Four of the most compact presynaptic partners on neuron exc\_23P, each shown in a separate panel. Colored dots: synapses from the highlighted partner; gray: all other synapses. Each panel shows the partner's synapse count ($k$), compactness ratio ($C$), and fraction of synapses on the most-used branch. Compact partners concentrate their synapses on restricted dendritic segments, consistent with the branch-local nature of input-specific clustering.}
+\label{fig:branch_targeting}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_k_vs_clustering.pdf}
+\caption{\textbf{Clustering detection and effect size vary with partner synapse count.}
+\textbf{(A)}~Fraction of BH-significant partners in each synapse count bin, pooled across all 12 neurons. Detection rate increases with $k$ due to greater statistical power. Dashed line: 5\% expected under the null. Numbers above bars indicate partner count per bin.
+\textbf{(B)}~Median compactness ratio with interquartile range by $k$ bin. Partners with fewer synapses show stronger compactness (lower ratio), while partners with many synapses show weaker but still below-null compactness, suggesting that high-$k$ partners may target broader dendritic territories.}
+\label{fig:k_vs_clustering}
+\end{figure}
+
+% ── Supplementary figures ──
+
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{figure}{0}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_enrichment_summary.pdf}
+\caption{\textbf{Enrichment of clustered partners across neurons and synapse-count tiers.}
+Enrichment ratio (observed / expected fraction of BH-significant partners) for each neuron at three $k$ thresholds. Stars indicate binomial test significance ($^*p < 0.05$, $^{**}p < 0.01$, $^{***}p < 0.001$). Dashed line: enrichment ratio of 1.0 (no enrichment). BPC neurons show no significant enrichment at any tier.}
+\label{fig:enrichment_summary}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_partner_volcano.pdf}
+\caption{\textbf{Per-partner clustering volcano plots.}
+Z-score (distance metric) versus $-\log_{10}(p)$ for each presynaptic partner on each neuron. Orange: excitatory presynaptic partners; blue: inhibitory. Dashed horizontal line: $p = 0.05$.}
+\label{fig:partner_volcano}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_branch_concentration.pdf}
+\caption{\textbf{Branch entropy versus mean pairwise geodesic distance.}
+Each point represents one presynaptic partner. Colored points: BH-significant at $k \geq 5$; gray: non-significant. Point size is proportional to synapse count. Significant partners tend to have lower entropy (more concentrated) and shorter pairwise distances.}
+\label{fig:branch_concentration}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_type_fingerprints.pdf}
+\caption{\textbf{Multiscale spatial fingerprints by presynaptic cell type.}
+Variance-mean ratio curves for excitatory (orange) and inhibitory (blue) presynaptic populations on each neuron, compared against null envelopes from 50 mock datasets. Both broad cell types show significant spatial structure on nearly all neurons.}
+\label{fig:type_fingerprints}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\textwidth]{figures/fig_dendrite_input_map_exc_23P.pdf}
+\caption{\textbf{Dendritic input map for neuron exc\_23P.}
+3D dendritic skeleton with synapses colored by the 8 highest-count presynaptic partners. Gray: all other synapses. Partners with many synapses can be seen occupying distinct dendritic territories.}
+\label{fig:dendrite_map}
+\end{figure}
