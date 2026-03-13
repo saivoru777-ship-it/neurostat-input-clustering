@@ -2,7 +2,7 @@
 
 \subsection{Data}
 
-We analyzed 12 cortical neurons from the MICrONS cortical connectome \citep{microns}: 6 excitatory (two layer 2/3 pyramidal, one layer 4 pyramidal, one layer 5 IT, one layer 5 ET, one layer 6 CT) and 6 inhibitory (two basket cells, two Martinotti cells, two bipolar cells). Dendritic morphologies were reconstructed as SWC files and synaptic inputs were extracted from the MICrONS HDF5 connectome database (v343), providing presynaptic neuron identity, 3D coordinates, and cell type classification for each synapse. Synapses were snapped to the nearest dendritic branch within 50~$\mu$m using the Neurostat framework \citep{neurostat}; synapses failing to snap were excluded. Valid synapse counts ranged from 488 to 2490 per neuron, with 8 to 107 presynaptic partners contributing $k \geq 5$ synapses each (Table~\ref{tab:summary}).
+We analyzed 12 cortical neurons from the MICrONS cortical connectome \citep{microns}: 6 excitatory (two layer 2/3 pyramidal, one layer 4 pyramidal, one layer 5 IT, one layer 5 ET, one layer 6 CT) and 6 inhibitory (two basket cells, two Martinotti cells, two bipolar cells). Dendritic morphologies were reconstructed as SWC files and synaptic inputs were extracted from the MICrONS HDF5 connectome database (v343), providing presynaptic neuron identity, 3D coordinates, and cell type classification for each synapse. Synapses were snapped to the nearest dendritic branch within 50~$\mu$m using the Neurostat framework \citep{neurostat}; synapses failing to snap were excluded ($< 1\%$ across all neurons). Valid synapse counts ranged from 488 to 2490 per neuron, with 8 to 107 presynaptic partners contributing $k \geq 5$ synapses each (Table~\ref{tab:summary}).
 
 \subsection{Fast geodesic distance computation}
 
