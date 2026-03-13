@@ -467,6 +467,106 @@ def plot_dendrite_input_map(skeleton, snap_result, pre_root_ids,
     return fig
 
 
+def plot_branch_targeting_map(skeleton, snap_result, pre_root_ids,
+                                partner_results, n_panels=4,
+                                title='', save_path=None):
+    """Focused branch targeting: show 3-4 individual partners on the dendrite.
+
+    Each panel highlights one partner's synapses on the dendritic tree,
+    showing where clusters live anatomically.
+
+    Parameters
+    ----------
+    skeleton : NeuronSkeleton
+    snap_result : SnapResult
+    pre_root_ids : ndarray
+    partner_results : list of dict
+        From per_partner_clustering_test, used to pick significant partners.
+    n_panels : int
+    title : str
+    save_path : str or Path
+    """
+    _apply_style()
+
+    # Pick top significant partners by effect size (most compact)
+    sig_partners = [pr for pr in partner_results
+                    if pr.get('bh_significant_k5', False) and pr['k'] >= 5]
+    sig_partners.sort(key=lambda pr: pr.get('effect_ratio', 1.0))
+    selected = sig_partners[:n_panels]
+
+    if len(selected) == 0:
+        return None
+
+    n = len(selected)
+    fig, axes = plt.subplots(1, n, figsize=(DOUBLE_COL, 3.0),
+                              subplot_kw={'projection': '3d'})
+    if n == 1:
+        axes = [axes]
+
+    # Reconstruct all synapse 3D positions
+    n_syn = len(snap_result.branch_ids)
+    positions = np.empty((n_syn, 3))
+    for i in range(n_syn):
+        bi = snap_result.branch_ids[i]
+        pos = snap_result.branch_positions[i]
+        branch = skeleton.branches[bi]
+        cum = 0.0
+        for ei in range(len(branch.edge_lengths)):
+            elen = branch.edge_lengths[ei]
+            if cum + elen >= pos or ei == len(branch.edge_lengths) - 1:
+                t = (pos - cum) / elen if elen > 0 else 0
+                t = np.clip(t, 0, 1)
+                n0 = skeleton.nodes[branch.node_ids[ei]]
+                n1 = skeleton.nodes[branch.node_ids[ei + 1]]
+                positions[i] = [
+                    n0.x + t * (n1.x - n0.x),
+                    n0.y + t * (n1.y - n0.y),
+                    n0.z + t * (n1.z - n0.z),
+                ]
+                break
+            cum += elen
+
+    colors = ['#D55E00', '#0072B2', '#009E73', '#CC79A7']
+
+    for pi, (pr, ax) in enumerate(zip(selected, axes)):
+        pid = pr['partner_id']
+        k = pr['k']
+        er = pr.get('effect_ratio', 1.0)
+        bf = pr['observed']['max_branch_fraction']
+
+        # Draw skeleton
+        for branch in skeleton.branches:
+            xs = [skeleton.nodes[nid].x for nid in branch.node_ids]
+            ys = [skeleton.nodes[nid].y for nid in branch.node_ids]
+            zs = [skeleton.nodes[nid].z for nid in branch.node_ids]
+            ax.plot(xs, ys, zs, '-', color='#E0E0E0', linewidth=0.3, alpha=0.4)
+
+        # All other synapses faint
+        other = pre_root_ids != pid
+        ax.scatter(positions[other, 0], positions[other, 1], positions[other, 2],
+                   c='#E0E0E0', s=2, alpha=0.15)
+
+        # This partner's synapses highlighted
+        mask = pre_root_ids == pid
+        color = colors[pi % len(colors)]
+        ax.scatter(positions[mask, 0], positions[mask, 1], positions[mask, 2],
+                   c=color, s=25, alpha=0.9, edgecolors='white', linewidths=0.3,
+                   zorder=10)
+
+        ax.set_title(f'k={k}, C={er:.2f}\nbranch={bf:.0%}',
+                     fontsize=6, pad=2)
+        ax.set_xticklabels([])
+        ax.set_yticklabels([])
+        ax.set_zticklabels([])
+        ax.tick_params(labelsize=4)
+
+    fig.suptitle(title, fontsize=9, fontweight='bold')
+    fig.tight_layout()
+    if save_path:
+        _save_fig(fig, save_path)
+    return fig
+
+
 def plot_compactness_cdf(neuron_results, save_path=None):
     """The "killer figure": CDF of partner compactness ratios vs null.
 

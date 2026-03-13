@@ -30,6 +30,7 @@ from src.viz import (
     plot_dendrite_input_map,
     plot_compactness_cdf,
     plot_k_vs_clustering,
+    plot_branch_targeting_map,
 )
 from src.hdf5_extraction import classify_cell_type_broad
 
@@ -245,6 +246,18 @@ def main():
                 title=f'{label} ({mtype})',
                 save_path=FIGURES_DIR / f'fig_dendrite_input_map_{label}.pdf',
             )
+
+            # Also generate focused branch targeting map
+            cr = [r for r in cluster_results if r['label'] == label]
+            if cr:
+                partner_results = cr[0]['partner_test']['partner_results']
+                plot_branch_targeting_map(
+                    skel, snap_valid, pre_ids,
+                    partner_results=partner_results,
+                    n_panels=4,
+                    title=f'Partner branch targeting: {label} ({mtype})',
+                    save_path=FIGURES_DIR / f'fig_branch_targeting_{label}.pdf',
+                )
 
     # ── Figure 9: Compactness CDF (the "killer figure") ──
     if cluster_results:
